@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <form class="input-group" action="/index">
+            <div class="form-outline">
+                <input type="search" id="form1" class="form-control" placeholder="Search" name="mc" th:value="${mc}" />
+            </div>
+            <button type="button" class="btn btn-primary fa fa-search"></button>
+        </form>
+        <a th:href="create" class="btn btn-primary fa fa-plus"></a>
+    </div>
+
+
+    <h1 class="mt-3">All Products</h1>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p:${products}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+            <td th:text="${p.quantity}"></td>
+            <td th:text="${p.category.name}"></td>
+            <td>
+                <a th:href="@{'delete/'+${p.id}}" class="btn btn-danger fa fa-trash"></a>
+                <a th:href="@{'edit/'+${p.id}}" class="btn btn-warning fa fa-edit"></a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <ul class="nav nav-pills">
+        <li th:each="i,c:${pages}">
+            <a th:href="@{/index(mc=${mc}, page=${c.index})}"
+                th:text="${c.index+1}"
+                th:class="${currentPage==c.index}?'btn btn-primary mx-2': 'btn btn-outline-primary mx-2'"
+                ></a>
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>

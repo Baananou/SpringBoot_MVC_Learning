@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-3">All Categories</h1>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c:${categories}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.name}"></td>
+<!--
+            <td th:text="${c.products}"></td>
+-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
