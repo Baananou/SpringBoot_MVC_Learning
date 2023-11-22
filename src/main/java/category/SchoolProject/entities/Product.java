@@ -29,5 +29,6 @@ public class Product {
     @ManyToOne
     @NotNull(message = "Category cannot be null")
     private Category category;
+    private String image;
 
 }

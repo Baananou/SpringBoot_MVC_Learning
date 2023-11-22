@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -21,7 +23,7 @@ public class ProductController {
     private ICategoryService categoryService;
     @GetMapping("/index")
     public String getAllProducts(@RequestParam(name = "mc", defaultValue = "") String mc,
-                                 @RequestParam(name = "size", defaultValue = "2" ) int size,
+                                 @RequestParam(name = "size", defaultValue = "6" ) int size,
                                  @RequestParam(name = "page", defaultValue = "0") int page,
                                  Model m){
 /*
@@ -49,13 +51,13 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String addProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult, Model m) {
+    public String addProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult, Model m, @RequestParam(name = "file") MultipartFile mf) throws IOException {
         if (bindingResult.hasErrors()){
             m.addAttribute("categories",categoryService.getAllCategories());
 
             return "addProduct";
         }
-        productService.saveProduct(product);
+        productService.saveProduct(product, mf);
         return "redirect:/index";
     }
 
@@ -67,9 +69,9 @@ public class ProductController {
         return "editProduct";
     }
     @PostMapping("/update/{id}")
-    public String updateProduct(@PathVariable(name = "id") long idProduct, @ModelAttribute Product updatedProduct) {
+    public String updateProduct(@PathVariable(name = "id") long idProduct, @ModelAttribute Product updatedProduct, @RequestParam(name = "file") MultipartFile mf) throws IOException {
         updatedProduct.setId(idProduct);
-        productService.saveProduct(updatedProduct);
+        productService.saveProduct(updatedProduct, mf);
 
         return "redirect:/index";
     }

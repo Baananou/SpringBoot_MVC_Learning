@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<form class="container" action="/add" method="post">
+<form class="container" action="/add" method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputProductName">Product Name</label>
     <input type="text" class="form-control" id="exampleInputProductName" placeholder="Enter Product Name" name="name" th:value="${product.name}">
@@ -30,6 +30,11 @@
               th:value="${category.id}"
               th:text="${category.name}"></option>
     </select>
+  </div>
+  <div>
+    Add Image
+    <input type="file" accept="image/*" name="file">
+    <input type="hidden" name="image" th:value="${product.image}">
   </div>
 
   <button type="submit" class="btn btn-primary mt-2">Submit</button>

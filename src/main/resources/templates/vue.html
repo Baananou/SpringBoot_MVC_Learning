@@ -24,6 +24,7 @@
         <thead class="thead-dark">
         <tr>
             <th>#</th>
+            <th>Image</th>
             <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -34,6 +35,12 @@
         <tbody>
         <tr th:each="p:${products}">
             <td th:text="${p.id}"></td>
+            <td th:if="${p.image==''|| p.image==null}">
+                <img src="/images/noimg.jpg" width="50" height="50">
+            </td>
+            <td th:unless="${p.image==''|| p.image==null}">
+                <img th:src="@{${'/images/'+p.image}}" width="50" height="50">
+            </td>
             <td th:text="${p.name}"></td>
             <td th:text="${p.price}"></td>
             <td th:text="${p.quantity}"></td>
