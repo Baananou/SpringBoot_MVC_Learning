@@ -9,13 +9,18 @@
 <body>
 <div class="container">
     <div class="d-flex justify-content-between mt-3">
-        <form class="input-group" action="/index">
+
+        <form class="input-group" action="user/index">
             <div class="form-outline">
                 <input type="search" id="form1" class="form-control" placeholder="Search" name="mc" th:value="${mc}" />
             </div>
             <button type="button" class="btn btn-primary fa fa-search"></button>
         </form>
-        <a th:href="create" class="btn btn-primary fa fa-plus"></a>
+        <a href="/admin/create" class="btn btn-primary fa fa-plus" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></a>
+        <h4 th:text="${#authentication.name}"></h4>
+        <form method="post" th:action="@{/logout}">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
     </div>
 
 
@@ -23,18 +28,18 @@
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
-            <th>#</th>
+            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">#</th>
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Category</th>
-            <th>Actions</th>
+            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="p:${products}">
-            <td th:text="${p.id}"></td>
+            <td th:text="${p.id}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></td>
             <td th:if="${p.image==''|| p.image==null}">
                 <img src="/images/noimg.jpg" width="50" height="50">
             </td>
@@ -45,9 +50,9 @@
             <td th:text="${p.price}"></td>
             <td th:text="${p.quantity}"></td>
             <td th:text="${p.category.name}"></td>
-            <td>
-                <a th:href="@{'delete/'+${p.id}}" class="btn btn-danger fa fa-trash"></a>
-                <a th:href="@{'edit/'+${p.id}}" class="btn btn-warning fa fa-edit"></a>
+            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{'/admin/delete/'+${p.id}}" class="btn btn-danger fa fa-trash"></a>
+                <a th:href="@{'/admin/edit/'+${p.id}}" class="btn btn-warning fa fa-edit"></a>
             </td>
 
         </tr>
@@ -56,7 +61,7 @@
 
     <ul class="nav nav-pills">
         <li th:each="i,c:${pages}">
-            <a th:href="@{/index(mc=${mc}, page=${c.index})}"
+            <a th:href="@{/user/index(mc=${mc}, page=${c.index})}"
                 th:text="${c.index+1}"
                 th:class="${currentPage==c.index}?'btn btn-primary mx-2': 'btn btn-outline-primary mx-2'"
                 ></a>

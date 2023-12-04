@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<form class="container mt-5" action="#" th:action="@{/update/{id}(id=${product.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
+<form class="container mt-5" action="#" th:action="@{/admin/update/{id}(id=${product.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
   <div class=" form-group ">
     <label for="name">Product Name</label>
     <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter Product Name" name="name">

@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<form class="container" action="/add" method="post" enctype="multipart/form-data">
+<form class="container" th:action="@{/admin/add}" method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputProductName">Product Name</label>
     <input type="text" class="form-control" id="exampleInputProductName" placeholder="Enter Product Name" name="name" th:value="${product.name}">
@@ -28,7 +28,7 @@
       <option value="" disabled selected>Select a category</option>
       <option th:each="category : ${categories}"
               th:value="${category.id}"
-              th:text="${category.name}"></option>
+              th:text="${category.name}"></option>+
     </select>
   </div>
   <div>

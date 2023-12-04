@@ -21,7 +21,7 @@ import java.util.List;
 public class ProductController {
     private IProductService productService;
     private ICategoryService categoryService;
-    @GetMapping("/index")
+    @GetMapping("/user/index")
     public String getAllProducts(@RequestParam(name = "mc", defaultValue = "") String mc,
                                  @RequestParam(name = "size", defaultValue = "6" ) int size,
                                  @RequestParam(name = "page", defaultValue = "0") int page,
@@ -37,20 +37,20 @@ public class ProductController {
         return "vue";
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("/admin/delete/{id}")
     public String deleteProduct(@PathVariable(name = "id") long idProduct){
         productService.deleteProduct(idProduct);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/admin/create")
     public String showAddProductForm(Model m){
         m.addAttribute("categories",categoryService.getAllCategories());
         m.addAttribute("product",new Product());
         return "addProduct";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/admin/add")
     public String addProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult, Model m, @RequestParam(name = "file") MultipartFile mf) throws IOException {
         if (bindingResult.hasErrors()){
             m.addAttribute("categories",categoryService.getAllCategories());
@@ -58,21 +58,25 @@ public class ProductController {
             return "addProduct";
         }
         productService.saveProduct(product, mf);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/admin/edit/{id}")
     public String showUpdateForm(@PathVariable(name = "id") long idProduct, Model m) {
         Product p = productService.getProduct(idProduct);
         m.addAttribute("product", p);
         m.addAttribute("categories", categoryService.getAllCategories());
         return "editProduct";
     }
-    @PostMapping("/update/{id}")
+    @PostMapping("/admin/update/{id}")
     public String updateProduct(@PathVariable(name = "id") long idProduct, @ModelAttribute Product updatedProduct, @RequestParam(name = "file") MultipartFile mf) throws IOException {
         updatedProduct.setId(idProduct);
         productService.saveProduct(updatedProduct, mf);
 
-        return "redirect:/index";
+        return "redirect:/user/index";
+    }
+    @GetMapping("/")
+    public String home(){
+        return "redirect:/user/index";
     }
 }
