@@ -16,8 +16,5 @@ public Page<Product> getProductsByMc(String mc, Pageable p);
 public List<Product> getProductsByCat(String idCat);
 public void  deleteProduct(Long id);
 public Product getProduct(Long id);
-
-
-
-
+public byte[] getImage(long id) throws IOException;
 }

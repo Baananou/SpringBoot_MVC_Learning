@@ -53,6 +53,14 @@ public class ProductService implements IProductService {
         return productRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public byte[] getImage(long id) throws IOException {
+        File f= new ClassPathResource("static/images").getFile();
+        String chemin = f.getAbsolutePath();
+        Path p = Paths.get(chemin,getProduct(id).getImage());
+        return Files.readAllBytes(p);
+    }
+
     private String saveImage(MultipartFile mf) throws IOException {
       String nameImg= mf.getOriginalFilename();
       String tab[]= nameImg.split("\\.");

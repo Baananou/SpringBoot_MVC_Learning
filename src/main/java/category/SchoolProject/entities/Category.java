@@ -1,5 +1,6 @@
 package category.SchoolProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,11 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 public class Category {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     public List<Product> products;
 
