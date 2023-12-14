@@ -16,7 +16,7 @@
             </div>
             <button type="button" class="btn btn-primary fa fa-search"></button>
         </form>
-        <a href="/admin/create" class="btn btn-primary fa fa-plus" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></a>
+        <a th:href="@{/admin/create}" class="btn btn-primary fa fa-plus" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"></a>
         <h4 th:text="${#authentication.name}"></h4>
         <form method="post" th:action="@{/logout}">
             <button type="submit" class="btn btn-danger">Logout</button>
@@ -28,18 +28,18 @@
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
-            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">#</th>
+            <th th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">#</th>
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Category</th>
-            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Actions</th>
+            <th th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="p:${products}">
-            <td th:text="${p.id}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></td>
+            <td th:text="${p.id}" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"></td>
             <td th:if="${p.image==''|| p.image==null}">
                 <img src="/images/noimg.jpg" width="50" height="50">
             </td>
@@ -50,7 +50,7 @@
             <td th:text="${p.price}"></td>
             <td th:text="${p.quantity}"></td>
             <td th:text="${p.category.name}"></td>
-            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                 <a th:href="@{'/admin/delete/'+${p.id}}" class="btn btn-danger fa fa-trash"></a>
                 <a th:href="@{'/admin/edit/'+${p.id}}" class="btn btn-warning fa fa-edit"></a>
             </td>

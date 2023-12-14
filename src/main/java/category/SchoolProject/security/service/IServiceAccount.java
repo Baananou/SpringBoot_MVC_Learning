@@ -1,6 +1,6 @@
-package category.SchoolProject.services;
+package category.SchoolProject.security.service;
 
-import category.SchoolProject.entities.AppUser;
+import category.SchoolProject.security.entities.AppUser;
 
 public interface IServiceAccount {
     public void addUser(String userName, String password, String mail);

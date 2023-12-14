@@ -1,4 +1,4 @@
-package category.SchoolProject.entities;
+package category.SchoolProject.security.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

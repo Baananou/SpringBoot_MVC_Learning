@@ -1,6 +1,6 @@
-package category.SchoolProject.services;
+package category.SchoolProject.security.service;
 
-import category.SchoolProject.entities.AppUser;
+import category.SchoolProject.security.entities.AppUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

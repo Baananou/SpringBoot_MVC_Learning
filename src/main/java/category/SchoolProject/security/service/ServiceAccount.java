@@ -1,9 +1,9 @@
-package category.SchoolProject.services;
+package category.SchoolProject.security.service;
 
-import category.SchoolProject.entities.AppRole;
-import category.SchoolProject.entities.AppUser;
-import category.SchoolProject.repositories.RoleRepository;
-import category.SchoolProject.repositories.UserRepository;
+import category.SchoolProject.security.entities.AppRole;
+import category.SchoolProject.security.entities.AppUser;
+import category.SchoolProject.security.repository.RoleRepository;
+import category.SchoolProject.security.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

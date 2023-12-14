@@ -4,6 +4,7 @@ import category.SchoolProject.entities.Category;
 import category.SchoolProject.entities.Product;
 import category.SchoolProject.repositories.CategoryRepository;
 import category.SchoolProject.repositories.ProductRepository;
+import category.SchoolProject.security.service.IServiceAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +30,20 @@ public class SchoolProjectApplication {
 	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-	@Bean
+	//@Bean
+	CommandLineRunner commandLineRunner(IServiceAccount accountService) {
+		return args -> {
+			accountService.addRole("USER");
+			accountService.addRole("ADMIN");
+			accountService.addUser("user", "123", "user@gmail.com");
+			accountService.addUser("admin","123","admin@gmail.com");
+			accountService.addRoleToUser("user","USER");
+			accountService.addRoleToUser("admin","ADMIN");
+			accountService.addRoleToUser("admin", "USER");
+
+		};
+	}
+	//@Bean
 	CommandLineRunner commandLineRunner(ProductRepository productRepository,CategoryRepository categoryRepository)
 	{
 		return args -> {

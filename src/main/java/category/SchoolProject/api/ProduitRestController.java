@@ -16,6 +16,8 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
+
 public class ProduitRestController {
     private IProductService productService;
     @GetMapping("/all")
@@ -27,10 +29,9 @@ public class ProduitRestController {
         return liste.getContent();
     }
     @DeleteMapping("/remove/{id}")
-    public String deleteProduct(@PathVariable(name = "id") long idProduct)
+    public void deleteProduct(@PathVariable(name = "id") long idProduct)
     {
         productService.deleteProduct(idProduct);
-        return "Deleted Successfully";
     }
 
     @PostMapping("/add")
